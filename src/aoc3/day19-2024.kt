@@ -3,48 +3,19 @@ package aoc3
 import java.io.File
 import kotlin.system.measureTimeMillis
 
-fun checkForCorrectDesign(data: String, patterns: List<String>): Boolean {
-    var subDesigns: List<String> = listOf(data)
-    while (subDesigns.isNotEmpty()) {
-        subDesigns = checkForPatterns(subDesigns, patterns)
-        if (subDesigns.size == 1) {
-            if (subDesigns[0] == "Correct") return true
-        }
-    }
-    return false
-}
-
-fun checkForPatterns(subDesigns: List<String>, patterns: List<String>): List<String> {
-    val returnList = mutableListOf<String>()
-    for (design in subDesigns) {
-        for (pattern in patterns) {
-            if (design.startsWith(pattern)) {
-                val temp: String = design.replaceFirst(pattern, "")
-                if (temp.isEmpty()){
-                    returnList.clear()
-                    returnList.add("Correct")
-                    return returnList
-                }
-                returnList.add(temp)
-            }
-        }
-    }
-    return returnList
-}
-
-fun checkForPatternRecursive(subDesigns: List<String>, patterns: List<String>): Boolean {
-    val returnList = mutableListOf<String>()
-    for (design in subDesigns) {
-        for (pattern in patterns) {
-            if (design.startsWith(pattern)) {
-                val temp: String = design.removePrefix(pattern)
-                if (temp.isEmpty()) return true
-                returnList.add(temp)
-            }
-        }
-    }
-    return returnList.isNotEmpty() && checkForPatternRecursive(returnList, patterns)
-}
+//fun checkForPatternRecursive(subDesigns: List<String>, patterns: List<String>): Boolean {
+//    val returnList = mutableListOf<String>()
+//    for (design in subDesigns) {
+//        for (pattern in patterns) {
+//            if (design.startsWith(pattern)) {
+//                val temp: String = design.removePrefix(pattern)
+//                if (temp.isEmpty()) return true
+//                returnList.add(temp)
+//            }
+//        }
+//    }
+//    return returnList.isNotEmpty() && checkForPatternRecursive(returnList, patterns)
+//}
 
 fun checkForPatternBFS(design: String, patterns: List<String>): Boolean {
     val queue: ArrayDeque<String> = ArrayDeque(listOf(design))
